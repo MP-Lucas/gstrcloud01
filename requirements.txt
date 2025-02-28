@@ -1,0 +1,5 @@
+Flask==3.0.3
+Flask-SocketIO==5.4.1
+paho-mqtt==2.1.0
+psycopg==3.2.3
+psycopg-binary==3.2.3

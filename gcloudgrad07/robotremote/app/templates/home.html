@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Home - BotRemote{% endblock %}
+
+{% block page_content %}
+<div class="container mt-4">
+    <h1>BotRemote - Sistema de Controle de Robôs Remotos</h1>
+    <p class="lead">Interaja com robôs físicos em tempo real, de qualquer lugar.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h2>Como Funciona?</h2>
+            <p>Este sistema permite a usuários cadastrados comandar robôs físicos através de uma interface web
+                intuitiva. Você pode registrar, gerenciar e controlar robôs com facilidade e segurança.</p>
+            <ul>
+                <li>Registro e gerenciamento de contas de usuário.</li>
+                <li>Registro e configuração de robôs.</li>
+                <li>Envio de comandos em tempo real para qualquer robô registrado no sistema.</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>Tecnologias Envolvidas</h2>
+            <p>O sistema utiliza tecnologias de ponta para garantir desempenho e segurança:</p>
+            <ul>
+                <li><strong>Python e Flask</strong> para o backend, garantindo uma plataforma robusta e escalável.</li>
+                <li><strong>Bootstrap</strong> para um design responsivo e moderno.</li>
+                <li><strong>PostgreSQL</strong> para armazenamento de dados seguro e eficiente.</li>
+                <li><strong>Apache Kafka</strong> para o manejo de eventos em tempo real entre os usuários e os robôs.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {% if not current_user.is_authenticated %}
+    <div class="mt-4">
+        <h2>Pronto para começar?</h2>
+        <p>Registre-se agora e comece a explorar as capacidades do controle remoto de robôs!</p>
+        <a href="/register" class="btn btn-primary">Registrar-se</a>
+        <a href="/login" class="btn btn-primary">Login</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

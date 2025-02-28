@@ -1,0 +1,43 @@
+#version: "3.8"
+networks:
+  app:
+    driver: bridge
+services:
+  db:
+    image: postgres
+    container_name: gstrgrad01-db
+    networks:
+      - app
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./setup/database/:/docker-entrypoint-initdb.d
+
+  web:
+    build: .
+    container_name: gstrgrad01-web
+    networks:
+      - app
+    ports:
+      - "5051:5000"
+    depends_on:
+      - mqtt-broker
+      - db
+    volumes:
+      - ./setup:/docker-entrypoint.sh
+
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: gstrgrad01-mqtt-broker
+    networks:
+      - app
+    ports:
+      - "7051:1883"
+    volumes:
+      - ./conf:/mosquitto/config
+
+volumes:
+  postgres_data:

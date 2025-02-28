@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Gerenciador - BotRemote{% endblock %}
+
+{% block page_content %}
+<h3>Seus robôs</h3>
+<div class="table-responsive">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Endereço IP</th>
+                <th>Porta</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for robot in robots %}
+            <tr>
+                <td>{{ robot.name }}</td>
+                <td>{{ robot.ip_address }}</td>
+                <td>{{ robot.port }}</td>
+                <td>
+                    <a href="{{ url_for('main.control_robot', robot_id=robot.id) }}" class="btn btn-primary">
+                        <i class="bi bi-play-circle"></i> Controlar
+                    </a>
+                    <a href="{{ url_for('main.edit_robot', robot_id=robot.id) }}" class="btn btn-secondary">
+                        <i class="bi bi-pencil-square"></i> Editar
+                    </a>
+                    <form action="{{ url_for('main.delete_robot', robot_id=robot.id) }}" method="post"
+                        style="display: inline-block;"
+                        onsubmit="return confirm('Tem certeza que deseja deletar este robô?');">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Apagar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">Nenhum robô registrado</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

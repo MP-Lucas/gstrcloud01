@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{{ super() }}  
+<link rel="stylesheet" href="{{ url_for('static', filename='css/control-robot.css') }}">
+{% endblock %}
+
+{% block title %}BotRemote - Control Robot{% endblock %}
+
+{% block page_content %}
+
+
+<div class="container mt-3">
+    <!-- Robot Details -->
+    <div class="row" id="robot-data">
+        <h3>Informações do Robô</h3>
+        <p>Nome do robô: {{ robot.name }}</p>
+        <p>Endereço IP: {{ robot.ip_address }}</p>
+        <p>Port: {{ robot.port }}</p>
+    </div>
+    
+    <!-- Robot Camera -->
+    <div class="row" id="robot-camera">
+        <h3>Câmera de Visualização</h3>
+        <img src="http://{{ robot.ip_address }}:{{ robot.port }}/stream" alt="Video stream" class="img-fluid">
+    </div>
+
+    <!-- Robot Controllers -->
+    <div class="row" id="robot-controllers">
+        <h3>Controles</h3>
+        <div class="col-12">
+            <button class="btn btn-primary" onclick="sendCommand('forward')">Forward</button>
+            <button class="btn btn-secondary" onclick="sendCommand('left')">Left</button>
+            <button class="btn btn-secondary" onclick="sendCommand('right')">Right</button>
+            <button class="btn btn-danger" onclick="sendCommand('backward')">Backward</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function sendCommand(command) {
+        fetch(`/api-robot/{{ robot.id }}/${command}`, { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
+
+{% endblock %}

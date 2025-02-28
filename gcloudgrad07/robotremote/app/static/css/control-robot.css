@@ -1,0 +1,21 @@
+#robot-data {
+    background-color: gainsboro;
+    margin-bottom: 2vh;
+    border-radius: 10px;
+    width: 100%;
+    padding: 3vh;
+}
+
+#robot-camera {
+    background-color: gainsboro;
+    min-height: 20vh;
+    border-radius: 10px;
+    padding: 3vh;
+    margin-bottom: 2vh;
+}
+
+#robot-controllers {
+    background-color: gainsboro;
+    padding: 3vh;
+    border-radius: 10px;
+}

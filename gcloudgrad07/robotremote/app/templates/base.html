@@ -1,0 +1,62 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}BotRemote{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+         body {
+        padding-top: 70px;
+    }
+    .navbar-brand.active, .navbar-brand:hover, .navbar-brand:focus {
+        color: #fff;
+        text-decoration: none;
+    }
+    </style>
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand active" href="{{ url_for('main.home') }}">
+                <i class="bi bi-robot"></i> BotRemote
+            </a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="{{ 'active' if request.path == url_for('main.home') else '' }}"><a
+                        href="{{ url_for('main.home') }}">Home</a></li>
+                {% if not current_user.is_authenticated %}
+                <li class="{{ 'active' if request.path == url_for('main.login') else '' }}"><a
+                        href="{{ url_for('main.login') }}">Login</a></li>
+                <li class="{{ 'active' if request.path == url_for('main.register') else '' }}"><a
+                        href="{{ url_for('main.register') }}">Registro</a></li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                <li class="{{ 'active' if request.path == url_for('main.manager') else '' }}"><a
+                        href="{{ url_for('main.manager') }}">Gerenciador</a></li>
+                <li class="{{ 'active' if request.path == url_for('main.register_robot') else '' }}"><a
+                        href="{{ url_for('main.register_robot') }}">Registrar Robô</a></li>
+                <li><a href="{{ url_for('main.logout') }}">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% block page_content %}
+        
+        {% endblock %}
+    </div>
+{% endblock %}

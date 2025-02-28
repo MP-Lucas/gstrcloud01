@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container">
+    <h2>{{ 'Editar Robô' if robot else 'Registrar Robô' }}</h2>
+    <form method="post">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        {{ form.hidden_tag() }}
+        {{ form.name.label }} {{ form.name(class_="form-control", size=20) }}<br>
+        {% for error in form.name.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        <br>
+        {% endfor %}
+
+        {{ form.ip_address.label }} {{ form.ip_address(class_="form-control", size=20) }}<br>
+        {% for error in form.ip_address.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        <br>
+        {% endfor %}
+
+        {{ form.port.label }} {{ form.port(class_="form-control", size=20) }}<br>
+        {% for error in form.port.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        <br>
+        {% endfor %}
+
+        {{ form.robot_id.label }} {{ form.robot_id(class_="form-control", size=20) }}<br>
+        {% for error in form.port.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        <br>
+        {% endfor %}
+
+        {{ form.robot_password.label }} {{ form.robot_password(class_="form-control", size=20) }}<br>
+        {% for error in form.port.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        <br>
+        {% endfor %}
+        
+        {{ form.submit(class_="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}
